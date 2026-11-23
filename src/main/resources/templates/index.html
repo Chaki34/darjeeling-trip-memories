@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A collection of photographs and videos from our Darjeeling trip.">
+    <title>Darjeeling Diaries | A Journey Through the Hills</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">A COLLECTION OF MOMENTS · THE HIMALAYAS</p>
+            <h1>Some journeys<br>stay with <i>you.</i></h1>
+            <p class="hero-copy">Misty mornings, winding roads, mountain views and memories worth keeping. Welcome to our Darjeeling trip journal.</p>
+            <div class="hero-actions">
+                <a class="button button-light" th:href="@{/gallery}">Explore photographs <span>↗</span></a>
+                <a class="text-link" th:href="@{/videos}">Watch the memories →</a>
+            </div>
+        </div>
+        <div class="hero-note"><span>27.04° N</span><span>88.26° E</span><span>Darjeeling, India</span></div>
+    </section>
+
+    <section class="intro section-wrap">
+        <div><p class="eyebrow">THE STORY</p><h2>More than a destination.<br><i>A feeling.</i></h2></div>
+        <p class="intro-copy">A little corner of the internet dedicated to the places we explored, the people we travelled with and the moments we never want to forget.</p>
+    </section>
+
+    <section class="section-wrap">
+        <div class="section-heading"><div><p class="eyebrow">FRAME BY FRAME</p><h2>Photo <i>memories</i></h2></div><a class="text-link" th:href="@{/gallery}">View all photos ↗</a></div>
+        <div class="photo-grid" id="home-photos">
+            <article class="empty-state" th:if="${#lists.isEmpty(photos)}">
+                <div class="empty-icon">✳</div><h3>Your memories will appear here</h3>
+                <p>Upload photographs to your S3 bucket under the <code>photos/</code> folder, then configure the bucket and CloudFront URL.</p>
+            </article>
+            <a class="photo-card" th:each="photo,stat : ${photos}" th:href="${photo.url}" target="_blank" rel="noopener">
+                <img th:src="${photo.url}" th:alt="${photo.fileName}" loading="lazy">
+                <span th:text="${photo.fileName}">Photo</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="video-band">
+        <div class="section-wrap video-band-inner">
+            <div><p class="eyebrow">PRESS PLAY</p><h2>The trip, in <i>motion.</i></h2><p>Little clips, big memories. Revisit the journey through our videos.</p></div>
+            <a class="button button-dark" th:href="@{/videos}">Explore videos ↗</a>
+        </div>
+    </section>
+</main>
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="navbar" class="site-header">
+    <a class="brand" th:href="@{/}"><span class="brand-mark">D</span><span>Darjeeling <em>Diaries</em></span></a>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/gallery}">Photos</a>
+        <a th:href="@{/videos}">Videos</a>
+        <a th:href="@{/about}">The Journey</a>
+    </nav>
+</header>
+<footer th:fragment="footer" class="footer">
+    <span>Made with memories in the hills.</span>
+    <span>Darjeeling Diaries · A travel memory collection</span>
+</footer>
+</body>
+</html>

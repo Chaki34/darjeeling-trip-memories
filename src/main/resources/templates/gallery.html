@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Photographs | Darjeeling Diaries</title>
+
+    <meta name="description"
+          content="Explore photographs and captured moments from the Darjeeling journey.">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<div th:replace="~{fragments :: navbar}"></div>
+
+<main class="page-main section-wrap">
+
+    <!-- Page Heading -->
+    <p class="eyebrow">THE PHOTO COLLECTION</p>
+
+    <h1 class="page-title">
+        Captured <i>moments.</i>
+    </h1>
+
+    <p class="page-lead">
+        Every photograph holds a little piece of the journey.
+    </p>
+
+    <!-- Photo Gallery -->
+    <div class="photo-grid gallery-grid">
+
+        <!-- Empty State -->
+        <article class="empty-state"
+                 th:if="${#lists.isEmpty(photos)}">
+
+            <div class="empty-icon">✳</div>
+
+            <h3>No photographs yet</h3>
+
+            <p>
+                Photographs will appear here once they are available
+                in your AWS S3 photos/ folder.
+            </p>
+
+        </article>
+
+        <!-- Photo Cards -->
+        <a class="photo-card"
+           th:each="photo : ${photos}"
+           th:href="${photo.url}"
+           th:attr="aria-label=${'View photograph: ' + photo.fileName}"
+           target="_blank"
+           rel="noopener noreferrer">
+
+            <img
+                    th:src="${photo.url}"
+                    th:alt="${photo.fileName}"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('image-error');">
+
+            <span th:text="${photo.fileName}">
+                    Photo
+                </span>
+
+        </a>
+
+    </div>
+
+</main>
+
+<!-- Footer -->
+<div th:replace="~{fragments :: footer}"></div>
+
+<!-- Application JavaScript -->
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

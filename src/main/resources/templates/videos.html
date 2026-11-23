@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Videos | Darjeeling Diaries</title>
+
+    <meta name="description"
+          content="Watch memorable moments and videos from the Darjeeling journey.">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<div th:replace="~{fragments :: navbar}"></div>
+
+<main class="page-main section-wrap">
+
+    <!-- Page Heading -->
+    <p class="eyebrow">MOVING MEMORIES</p>
+
+    <h1 class="page-title">
+        The journey in <i>motion.</i>
+    </h1>
+
+    <p class="page-lead">
+        A few seconds can bring an entire day back.
+    </p>
+
+    <!-- Video Gallery -->
+    <div class="video-grid">
+
+        <!-- Empty State -->
+        <article class="empty-state"
+                 th:if="${#lists.isEmpty(videos)}">
+
+            <div class="empty-icon">▶</div>
+
+            <h3>Your videos will appear here</h3>
+
+            <p>
+                Videos will appear here once they are available
+                in your AWS S3 photos/ folder.
+            </p>
+
+        </article>
+
+        <!-- Video Cards -->
+        <article class="video-card"
+                 th:each="video : ${videos}">
+
+            <video
+                    controls
+                    preload="metadata"
+                    playsinline
+                    th:attr="aria-label=${'Play video: ' + video.fileName}">
+
+                <source
+                        th:src="${video.url}"
+                        th:type="${#strings.toLowerCase(video.fileName).endsWith('.mov') ? 'video/quicktime' : (#strings.toLowerCase(video.fileName).endsWith('.webm') ? 'video/webm' : 'video/mp4')}">
+
+                Your browser does not support video playback.
+
+            </video>
+
+            <h3 th:text="${video.fileName}">
+                Trip video
+            </h3>
+
+        </article>
+
+    </div>
+
+</main>
+
+<!-- Footer -->
+<div th:replace="~{fragments :: footer}"></div>
+
+<!-- Application JavaScript -->
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>
